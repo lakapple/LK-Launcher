@@ -4,16 +4,20 @@ export { SelectionBarItem }
 
 export component VerticalSelectionBar inherits Rectangle {
     in-out property <int> active-selection-index;
+    in property <LayoutAlignment> alignment;
 
     VerticalLayout {
+        alignment: root.alignment;
         @children
     }
 }
 
 export component HorizontalSelectionBar inherits Rectangle {
     in-out property <int> active-selection-index;
+    in property <LayoutAlignment> alignment;
 
     HorizontalLayout {
+        alignment: root.alignment;
         @children
     }   
 }
