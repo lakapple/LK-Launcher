@@ -18,8 +18,7 @@ import "@assets/fonts/JetBrainsMono-ThinItalic.ttf";
 import { PageView } from "@ui/components/page-view/page-view.slint";
 import { PageViewItem } from "@ui/components/page-view/page-view-item.slint";
 
-import { Sidebar } from "@ui/components/sidebar/sidebar.slint";
-import { SidebarItem } from "@ui/components/sidebar/sidebar-item.slint";
+import { VerticalSelectionBar, SelectionBarItem } from "@ui/components/selection-bar/selection-bar.slint"; 
 
 import { InstancesPage, ServersPage, AccountsPage, SettingsPage } from "@ui/pages/pages.slint";
 
@@ -29,8 +28,8 @@ export component MainWindow inherits Window {
     min-height: 500px;
     
     HorizontalLayout {
-        sidebar := Sidebar {
-            width: 225px;
+        sidebar := VerticalSelectionBar {
+            width: 200px;
             background: #2c2c2c;
             alignment: LayoutAlignment.start; 
             
@@ -39,7 +38,7 @@ export component MainWindow inherits Window {
                 "Servers", 
                 "Accounts", 
                 "Settings"
-            ]: SidebarItem {
+            ]: SelectionBarItem {
                 height: 50px;
                 background: index == page-view.active-page-index ? #3a3a3a : #2c2c2c;
                 Text {
