@@ -4,13 +4,31 @@
 use std::error::Error;
 
 mod globals;
+mod logging;
 
 slint::include_modules!();
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let ui = MainWindow::new()?;
 
-    ui.run()?;
+    if let Err(e) = logging::initialize() {
+        eprintln!("FATAL: Failed to initialize logger: {}", e);
+        return Err(Box::new(e));
+    }
+
+    let ui = match MainWindow::new() {
+        Ok(ui) => ui,
+        Err(e) => {
+            log::error!("FATAL: Failed to create main window: {}", e);
+            return Err(Box::new(e));
+        }
+    };
+
+    log::info!("Starting LK Launcher");
+
+    match ui.run() {
+        Ok(_) => log::info!("Terminated LK Launcher"),
+        Err(e) => log::error!("FATAL: Failed to run LK Launcher: {}", e),
+    }
 
     Ok(())
 }
