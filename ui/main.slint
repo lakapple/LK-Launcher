@@ -21,6 +21,8 @@ import { PageViewItem } from "@ui/components/page-view/page-view-item.slint";
 import { Sidebar } from "@ui/components/sidebar/sidebar.slint";
 import { SidebarItem } from "@ui/components/sidebar/sidebar-item.slint";
 
+import { InstancesPage, ServersPage, AccountsPage, SettingsPage } from "@ui/pages/pages.slint";
+
 export component MainWindow inherits Window {
     title: "LK Launcher";
 
@@ -32,9 +34,19 @@ export component MainWindow inherits Window {
             background: #2c2c2c;
             alignment: LayoutAlignment.start; 
             
-            for index in 5: SidebarItem {
+            for label[index] in [
+                "Instances", 
+                "Servers", 
+                "Accounts", 
+                "Settings"
+            ]: SidebarItem {
+                height: 50px;
+                background: index == page-view.active-page-index ? #3a3a3a : #2c2c2c;
                 Text {
-                    text: "Page " + index;
+                    font-family: "JetBrains Mono";
+                    font-size: 18px;
+                    font-weight: 500;
+                    text: label;
                 }
                 activate => { page-view.active-page-index = index }
             }
@@ -44,12 +56,13 @@ export component MainWindow inherits Window {
             min-width: 500px; 
             active-page-index: 0;
 
-            for index in 5: PageViewItem {
+            for index in 4: PageViewItem {
                 is-active: index == page-view.active-page-index;
 
-                Text {
-                    text: "Page " + index;
-                }
+                if index == 0: InstancesPage {}
+                if index == 1: ServersPage {}
+                if index == 2: AccountsPage {}
+                if index == 3: SettingsPage {}
             }
         }
     }
