@@ -23,9 +23,13 @@ import { SidebarItem } from "@ui/components/sidebar/sidebar-item.slint";
 
 export component MainWindow inherits Window {
     title: "LK Launcher";
+
+    min-height: 500px;
     
     HorizontalLayout {
         sidebar := Sidebar {
+            width: 225px;
+            background: #2c2c2c;
             alignment: LayoutAlignment.start; 
             
             for index in 5: SidebarItem {
@@ -37,6 +41,7 @@ export component MainWindow inherits Window {
         }
 
         page-view := PageView {
+            min-width: 500px; 
             active-page-index: 0;
 
             for index in 5: PageViewItem {
