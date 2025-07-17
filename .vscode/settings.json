@@ -1,0 +1,5 @@
+{
+	"slint.libraryPaths": {
+		"ui": "ui"
+	}
+}
