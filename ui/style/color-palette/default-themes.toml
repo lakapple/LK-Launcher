@@ -1,0 +1,23 @@
+[CatppuccinMocha]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+alternate-background = "#181825"
+alternate-foreground = "#bac2de"
+control-background = "#313244"
+control-foreground = "#cdd6f4"
+accent-background = "#89b4fa"
+accent-foreground = "#cdd6f4"
+selection-background = "#b4befe"
+selection-foreground = "#1e1e2e"
+
+[CatppuccinLatte]
+background = "#eff1f5"
+foreground = "#4c4f69"
+alternate-background = "#e6e9ef"
+alternate-foreground = "#5c5f77"
+control-background = "#ccd0da"
+control-foreground = "#4c4f69"
+accent-background = "#1e66f5"
+accent-foreground = "#eff1f5"
+selection-background = "#acb0be"
+selection-foreground = "#eff1f5"

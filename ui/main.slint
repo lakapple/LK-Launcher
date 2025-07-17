@@ -15,6 +15,8 @@ import "@assets/fonts/JetBrainsMono-SemiBoldItalic.ttf";
 import "@assets/fonts/JetBrainsMono-Thin.ttf";
 import "@assets/fonts/JetBrainsMono-ThinItalic.ttf";
 
+import { Config } from "@ui/globals.slint";
+
 import { PageView } from "@ui/components/page-view/page-view.slint";
 import { PageViewItem } from "@ui/components/page-view/page-view-item.slint";
 
@@ -30,7 +32,6 @@ export component MainWindow inherits Window {
     HorizontalLayout {
         sidebar := VerticalSelectionBar {
             width: 200px;
-            background: #2c2c2c;
             alignment: LayoutAlignment.start; 
             
             for label[index] in [
