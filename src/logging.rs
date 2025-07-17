@@ -6,30 +6,23 @@ use crate::globals;
 
 
 pub fn initialize() -> Result<(), fern::InitError> {
-    // Logging base configuration
     let base_config = fern::Dispatch::new()
         .level(LevelFilter::Debug)
         .level_for("slint::platform", LevelFilter::Info);
 
-    // Console output configuration
-    let console_colors = ColoredLevelConfig::new()
-        .info(Color::Green)
-        .warn(Color::Yellow)
-        .error(Color::Red)
-        .debug(Color::Cyan)
-        .trace(Color::BrightBlack);
+    let console_config = create_console_config()?;
+    let file_config = create_file_config()?;
+    
+    // Combine all configurations
+    base_config
+        .chain(console_config)
+        .chain(file_config)
+        .apply()?;
 
-    let console_config = fern::Dispatch::new()
-        .format( move |out, message, record| {
-            out.finish(format_args!(
-                "[{}] {}",
-                console_colors.color(record.level()),
-                message
-            ))
-        })
-        .chain(std::io::stdout());
+    Ok(())
+}
 
-    // File output configuration
+fn create_file_config() -> Result<fern::Dispatch, fern::InitError> {
     let logs_directory = &*globals::LAUNCHER_DIRECTORY.join("logs");
 
     fs::create_dir_all(logs_directory)?;
@@ -52,11 +45,27 @@ pub fn initialize() -> Result<(), fern::InitError> {
         })
         .chain(fern::log_file(log_file_path)?);
 
-    // Combine all configurations
-    base_config
-        .chain(console_config)
-        .chain(file_config)
-        .apply()?;
-
-    Ok(())
+    Ok(file_config)
 }
+
+fn create_console_config() -> Result<fern::Dispatch, fern::InitError> {
+    // Console output configuration
+    let console_colors = ColoredLevelConfig::new()
+        .info(Color::Green)
+        .warn(Color::Yellow)
+        .error(Color::Red)
+        .debug(Color::Cyan)
+        .trace(Color::BrightBlack);
+    
+    let console_config = fern::Dispatch::new()
+        .format( move |out, message, record| {
+            out.finish(format_args!(
+                "[{}] {}",
+                console_colors.color(record.level()),
+                message
+            ))
+        })
+        .chain(std::io::stdout());
+
+    Ok(console_config)
+    }
