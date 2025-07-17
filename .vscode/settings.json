@@ -1,5 +1,6 @@
 {
 	"slint.libraryPaths": {
-		"ui": "ui"
+		"ui": "ui",
+		"assets": "assets"
 	}
 }
