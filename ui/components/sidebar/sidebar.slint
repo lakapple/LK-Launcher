@@ -1,0 +1,11 @@
+import { SidebarItem } from "@ui/components/sidebar/sidebar-item.slint";
+
+export component Sidebar inherits Rectangle {
+    in-out property <int> active-selection-index;
+    in property <LayoutAlignment> alignment;
+
+    VerticalLayout {
+        alignment: root.alignment;
+        @children
+    }
+}

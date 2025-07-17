@@ -14,3 +14,40 @@ import "@assets/fonts/JetBrainsMono-SemiBold.ttf";
 import "@assets/fonts/JetBrainsMono-SemiBoldItalic.ttf";
 import "@assets/fonts/JetBrainsMono-Thin.ttf";
 import "@assets/fonts/JetBrainsMono-ThinItalic.ttf";
+
+import { PageView } from "@ui/components/page-view/page-view.slint";
+import { PageViewItem } from "@ui/components/page-view/page-view-item.slint";
+
+import { Sidebar } from "@ui/components/sidebar/sidebar.slint";
+import { SidebarItem } from "@ui/components/sidebar/sidebar-item.slint";
+
+export component MainWindow inherits Window {
+    title: "LK Launcher";
+    
+    HorizontalLayout {
+        sidebar := Sidebar {
+            alignment: LayoutAlignment.start; 
+            
+            for index in 5: SidebarItem {
+                Text {
+                    text: "Page " + index;
+                }
+                activate => { page-view.active-page-index = index }
+            }
+        }
+
+        page-view := PageView {
+            active-page-index: 0;
+
+            for index in 5: PageViewItem {
+                is-active: index == page-view.active-page-index;
+
+                Text {
+                    text: "Page " + index;
+                }
+            }
+        }
+    }
+
+    
+}

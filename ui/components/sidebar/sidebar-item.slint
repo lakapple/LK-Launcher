@@ -1,0 +1,9 @@
+export component SidebarItem inherits Rectangle {
+    in property <bool> is-selected;
+
+    callback activate;
+
+    TouchArea {
+        clicked => { root.activate() }
+    }
+}
