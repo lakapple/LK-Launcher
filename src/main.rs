@@ -3,6 +3,8 @@
 
 use std::error::Error;
 
+mod globals;
+
 slint::include_modules!();
 
 fn main() -> Result<(), Box<dyn Error>> {
