@@ -15,23 +15,23 @@ import "@assets/fonts/JetBrainsMono-SemiBoldItalic.ttf";
 import "@assets/fonts/JetBrainsMono-Thin.ttf";
 import "@assets/fonts/JetBrainsMono-ThinItalic.ttf";
 
-import { Config } from "@ui/globals.slint";
+import { ColorPalette } from "@ui/style/color-palette.slint";
 
 import { PageView, PageViewItem } from "@ui/components/page-view/page-view.slint";
-
 import { VerticalSelectionBar, SelectionBarItem } from "@ui/components/selection-bar/selection-bar.slint"; 
-
 import { InstancesPage, ServersPage, AccountsPage, SettingsPage } from "@ui/pages/pages.slint";
 
 export component MainWindow inherits Window {
     title: "LK Launcher";
 
     min-height: 500px;
+    background: ColorPalette.background;
     
     HorizontalLayout {
         sidebar := VerticalSelectionBar {
             width: 200px;
             alignment: LayoutAlignment.start; 
+            background: ColorPalette.alternate-background;
             
             for label[index] in [
                 "Instances", 
@@ -40,11 +40,14 @@ export component MainWindow inherits Window {
                 "Settings"
             ]: SelectionBarItem {
                 height: 50px;
-                background: index == page-view.active-page-index ? #3a3a3a : #2c2c2c;
+                background: index == page-view.active-page-index 
+                    ? ColorPalette.background 
+                    : ColorPalette.alternate-background;
                 Text {
                     font-family: "JetBrains Mono";
                     font-size: 18px;
                     font-weight: 500;
+                    color: index == page-view.active-page-index ? ColorPalette.accent-foreground : Colors.white;
                     text: label;
                 }
                 activate => { page-view.active-page-index = index }
