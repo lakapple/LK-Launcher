@@ -5,6 +5,7 @@ use std::error::Error;
 
 mod globals;
 mod logging;
+mod constants;
 
 slint::include_modules!();
 

@@ -1,6 +1,5 @@
 use fern::colors::{Color, ColoredLevelConfig};
 use log::LevelFilter;
-use std::fs;
 
 use crate::globals;
 
@@ -23,16 +22,12 @@ pub fn initialize() -> Result<(), fern::InitError> {
 }
 
 fn create_file_config() -> Result<fern::Dispatch, fern::InitError> {
-    let logs_directory = &*globals::LAUNCHER_DIRECTORY.join("logs");
-
-    fs::create_dir_all(logs_directory)?;
-
     let log_file_name = format!(
         "{}.log",
         chrono::Local::now().format("%Y-%m-%d-%H-%M-%S")
     );
 
-    let log_file_path = logs_directory.join(log_file_name);
+    let log_file_path = globals::LOGS_DIRECTORY.join(log_file_name);
 
     let file_config = fern::Dispatch::new()
         .format(move |out, message, record| {
