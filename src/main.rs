@@ -8,6 +8,7 @@ mod logging;
 
 slint::include_modules!();
 
+
 fn main() -> Result<(), Box<dyn Error>> {
     // Initialize the logger
     if let Err(e) = logging::initialize() {
