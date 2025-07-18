@@ -15,11 +15,3 @@ pub static LOGS_DIRECTORY: LazyLock<PathBuf> = LazyLock::new(|| {
 
     path
 });
-
-pub static CONFIG_DIRECTORY: LazyLock<PathBuf> = LazyLock::new(|| {
-    let path = LAUNCHER_DIRECTORY.join(constants::CONFIG_DIRECTORY);
-
-    fs::create_dir_all(&path).unwrap();
-
-    path
-});
