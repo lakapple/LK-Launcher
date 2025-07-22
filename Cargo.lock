@@ -782,16 +782,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3d7b894f5411737b7867f4827955924d7c254fc9f4d91a6aad6b097804b1018b"
 
 [[package]]
-name = "colored"
-version = "2.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "117725a109d387c937a1533ce01b450cbde6b88abceea8473c4d7a85853cda3c"
-dependencies = [
- "lazy_static",
- "windows-sys 0.59.0",
-]
-
-[[package]]
 name = "combine"
 version = "4.6.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1392,16 +1382,6 @@ dependencies = [
  "unicode-segmentation",
  "wasm-bindgen",
  "web-sys",
-]
-
-[[package]]
-name = "fern"
-version = "0.7.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4316185f709b23713e41e3195f90edef7fb00c3ed4adc79769cf09cc762a3b29"
-dependencies = [
- "colored",
- "log",
 ]
 
 [[package]]
@@ -2556,16 +2536,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "241eaef5fd12c88705a01fc1066c48c4b36e0dd4377dcdc7ec3942cea7a69956"
 
 [[package]]
-name = "lk-launcher"
+name = "lk_core"
 version = "0.1.0"
 dependencies = [
- "chrono",
- "fern",
- "log",
  "serde",
+ "toml 0.9.2",
+]
+
+[[package]]
+name = "lk_launcher"
+version = "0.1.0"
+dependencies = [
+ "lk_core",
  "slint",
  "slint-build",
- "toml 0.9.2",
 ]
 
 [[package]]

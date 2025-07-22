@@ -1,0 +1,13 @@
+export component SelectionPanelItem inherits Rectangle {
+    in-out property <bool> is-selected: false;
+
+    callback clicked;
+
+    @children
+
+    TouchArea {
+        clicked => { 
+            root.clicked();
+        }
+    }
+}

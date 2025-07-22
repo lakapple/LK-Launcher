@@ -1,0 +1,18 @@
+import { LKPalette } from "@ui/style/color-palette.slint";
+import { LKText } from "@ui/style/components/text.slint";
+
+export component LKButton inherits Rectangle {
+    in-out property <string> text;
+    in-out property <color> text-color: LKPalette.foreground;
+
+    background: LKPalette.control-background;
+    border-radius: 7.5px;
+    border-width: 0.5px;
+    border-color: LKPalette.accent-background;
+    height: 30px;
+
+    LKText {
+        text: root.text;
+        color: root.text-color;
+    }
+}

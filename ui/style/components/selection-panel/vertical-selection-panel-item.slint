@@ -1,0 +1,25 @@
+import { SelectionPanelItem } from "@ui/components/selection-panel/index.slint";
+import { LKPalette } from "@ui/style/color-palette.slint";
+import { HorizontalBox } from "std-widgets.slint";
+
+component SelectedIndicator inherits Rectangle {
+    width: 10px;
+    background: LKPalette.accent-background;
+}
+
+export component LKVerticalSelectionPanelItem inherits SelectionPanelItem {
+    height: 30px;
+
+    HorizontalLayout {
+        alignment: LayoutAlignment.space-between;
+        Rectangle {
+            SelectedIndicator {
+                visible: root.is-selected == true;
+            }
+        }
+        Rectangle {
+            @children
+        }
+        Rectangle {}
+    }
+}

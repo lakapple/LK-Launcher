@@ -1,1 +1,0 @@
-pub static LOGS_DIRECTORY: &str = "logs";

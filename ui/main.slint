@@ -15,59 +15,149 @@ import "@assets/fonts/JetBrainsMono-SemiBoldItalic.ttf";
 import "@assets/fonts/JetBrainsMono-Thin.ttf";
 import "@assets/fonts/JetBrainsMono-ThinItalic.ttf";
 
-import { ColorPalette } from "@ui/style/color-palette.slint";
+import { PageView, PageViewItem } from "@ui/components/page-view/index.slint";
 
-import { PageView, PageViewItem } from "@ui/components/page-view/page-view.slint";
-import { VerticalSelectionBar, SelectionBarItem } from "@ui/components/selection-bar/selection-bar.slint"; 
-import { InstancesPage, ServersPage, AccountsPage, SettingsPage } from "@ui/pages/pages.slint";
+import { LKPalette } from "@ui/style/color-palette.slint";
+import {
+    LKText,
+    LKButton,
+    LKSelectionPanel,
+    LKVerticalSelectionPanelItem,
+} from "@ui/style/components/index.slint";
 
-export component MainWindow inherits Window {
+import { InstancesPage } from "pages/instances.slint";
+import { ServersPage } from "pages/servers.slint";
+import { AccountsPage } from "pages/accounts.slint";
+import { SettingsPage } from "pages/settings.slint";
+import { VerticalBox } from "std-widgets.slint";
+
+export component App inherits Window {
     title: "LK Launcher";
 
     min-height: 500px;
-    background: ColorPalette.background;
+    min-width: 750px;
+    background: LKPalette.background;
     
     HorizontalLayout {
-        sidebar := VerticalSelectionBar {
-            width: 200px;
-            alignment: LayoutAlignment.start; 
-            background: ColorPalette.alternate-background;
-            
-            for label[index] in [
-                "Instances", 
-                "Servers", 
-                "Accounts", 
-                "Settings"
-            ]: SelectionBarItem {
-                height: 50px;
-                background: index == page-view.active-page-index 
-                    ? ColorPalette.background 
-                    : ColorPalette.alternate-background;
-                Text {
-                    font-family: "JetBrains Mono";
-                    font-size: 18px;
-                    font-weight: 500;
-                    color: index == page-view.active-page-index ? ColorPalette.accent-foreground : Colors.white;
-                    text: label;
+        selection-panel := LKSelectionPanel {
+            background: LKPalette.alternate-background;
+            width: 100px;
+
+            VerticalLayout {
+                alignment: LayoutAlignment.space-between;
+
+                VerticalLayout {
+                    LKVerticalSelectionPanelItem {
+                        height: 75px;
+                        is-selected: selection-panel.active-selection-index == 0;
+                        clicked => {
+                            selection-panel.active-selection-index = 0;
+                            page-view.active-page-index = 0
+                        }
+                        VerticalLayout {
+                            alignment: LayoutAlignment.center;
+                            spacing: 10px;
+                            Image {
+                                source: @image-url("@assets/icons/play.svg");
+                                height: 20px;
+                            }
+                            Rectangle {
+                                LKText {
+                                    text: "Instances";
+                                }
+                            }
+                        }
+                        
+                    }
+                    LKVerticalSelectionPanelItem {
+                        height: 75px;
+                        is-selected: selection-panel.active-selection-index == 1;
+                        clicked => {
+                            selection-panel.active-selection-index = 1;
+                            page-view.active-page-index = 1;
+                        }
+                        VerticalLayout {
+                            alignment: LayoutAlignment.center;
+                            spacing: 10px;
+                            Image {
+                                source: @image-url("@assets/icons/server.svg");
+                                height: 20px;
+                            }
+                            Rectangle {
+                                LKText {
+                                    text: "Servers";
+                                }
+                            }
+                        }
+                    }
                 }
-                activate => { page-view.active-page-index = index }
+
+                VerticalLayout {
+                    LKVerticalSelectionPanelItem {
+                        height: 75px;
+                        is-selected: selection-panel.active-selection-index == 2;
+                        clicked => {
+                            selection-panel.active-selection-index = 2;
+                            page-view.active-page-index = 2;
+                        }
+                        VerticalLayout {
+                            alignment: LayoutAlignment.center;
+                            spacing: 10px;
+                            Image {
+                                source: @image-url("@assets/icons/user.svg");
+                                height: 20px;
+                            }
+                            Rectangle {
+                                LKText {
+                                    text: "Accounts";
+                                }
+                            }
+                        }
+                    }
+
+                    LKVerticalSelectionPanelItem {
+                        height: 75px;
+                        is-selected: selection-panel.active-selection-index == 3;
+                        clicked => {
+                            selection-panel.active-selection-index = 3;
+                            page-view.active-page-index = 3;
+                        }
+                        VerticalLayout {
+                            alignment: LayoutAlignment.center;
+                            spacing: 10px;
+                            Image {
+                                source: @image-url("@assets/icons/settings.svg");
+                                height: 20px;
+                            }
+                            Rectangle {
+                                LKText {
+                                    text: "Settings";
+                                }
+                            }
+                        } 
+                    }
+                }
             }
-        }
+        } 
 
         page-view := PageView {
-            min-width: 500px; 
-            active-page-index: 0;
-
-            for index in 4: PageViewItem {
-                is-active: index == page-view.active-page-index;
-
-                if index == 0: InstancesPage {}
-                if index == 1: ServersPage {}
-                if index == 2: AccountsPage {}
-                if index == 3: SettingsPage {}
+            min-width: 650px;
+            PageViewItem {
+                is-active: page-view.active-page-index == 0;
+                InstancesPage {}
+            }
+            PageViewItem {
+                is-active: page-view.active-page-index == 1;
+                ServersPage {}
+            }
+            PageViewItem {
+                is-active: page-view.active-page-index == 2;
+                AccountsPage {}
+            }
+            PageViewItem {
+                is-active: page-view.active-page-index == 3;
+                SettingsPage {}
             }
         }
     }
-
-    
 }
