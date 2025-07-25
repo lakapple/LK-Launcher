@@ -9,6 +9,7 @@ component SelectedIndicator inherits Rectangle {
 
 export component LKVerticalSelectionPanelItem inherits SelectionPanelItem {
     height: 30px;
+    background: root.is-selected == true ? LKPalette.background : LKPalette.alternate-background ;
 
     HorizontalLayout {
         alignment: LayoutAlignment.space-between;
