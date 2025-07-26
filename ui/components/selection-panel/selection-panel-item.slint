@@ -1,11 +1,13 @@
 export component SelectionPanelItem inherits Rectangle {
     in-out property <bool> is-selected: false;
+    in-out property <bool> has-hover: touch-area.has-hover;
 
     callback clicked;
 
     @children
 
-    TouchArea {
+    touch-area := TouchArea {
+        mouse-cursor: MouseCursor.pointer;
         clicked => { 
             root.clicked();
         }

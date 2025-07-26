@@ -5,18 +5,28 @@ import { HorizontalBox } from "std-widgets.slint";
 component SelectedIndicator inherits Rectangle {
     width: 10px;
     background: LKPalette.accent-background;
+    visible: false;
 }
 
 export component LKVerticalSelectionPanelItem inherits SelectionPanelItem {
     height: 30px;
-    background: root.is-selected == true ? LKPalette.background : LKPalette.alternate-background ;
+
+    states [
+        hovered-not-selected when !root.is-selected && root.has-hover: {
+            root.background: LKPalette.background;
+            selected-indicator.visible: false;
+        }
+
+        selected when root.is-selected: {
+            root.background: LKPalette.background;
+            selected-indicator.visible: true;
+        }
+    ]
 
     HorizontalLayout {
         alignment: LayoutAlignment.space-between;
         Rectangle {
-            SelectedIndicator {
-                visible: root.is-selected == true;
-            }
+            selected-indicator := SelectedIndicator {}
         }
         Rectangle {
             @children
